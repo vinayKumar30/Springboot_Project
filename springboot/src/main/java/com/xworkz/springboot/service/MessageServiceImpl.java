@@ -25,10 +25,23 @@ public class MessageServiceImpl implements MessageService {
 	public MessageDto save(MessageDto messageDto) {
 		logger.info("Invoked save method");
 		try {
-			SpringBootEntity springBootEntity = new SpringBootEntity();
-			springBootEntity.setName(messageDto.getName());
-			springBootEntity.setMessage(messageDto.getMessage());
-			springBootEntity = messageRepo.save(springBootEntity);
+			if (!messageDto.getName().isEmpty()) {
+
+				if (!messageDto.getMessage().isEmpty()) {
+
+					SpringBootEntity springBootEntity = new SpringBootEntity();
+					springBootEntity.setName(messageDto.getName());
+					springBootEntity.setMessage(messageDto.getMessage());
+					springBootEntity = messageRepo.save(springBootEntity);
+
+				} else {
+					logger.info("please enter details");
+				}
+
+			} else {
+				logger.info("enter complete details");
+			}
+
 		} catch (Exception e) {
 			logger.error("Exception " + e.getMessage(), e);
 		} 
